@@ -305,6 +305,17 @@
       font-size: 15px;
     }
 
+    .section-sub-note {
+      margin-top: 10px;
+      color: #e7d8b5;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .gold-icon {
+      margin-right: 8px;
+    }
+
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -418,10 +429,20 @@
     }
 
     .booking-card {
+      position: relative;
+      overflow: hidden;
       padding: 26px;
       border-radius: 28px;
       border: 1px solid rgba(214, 178, 85, 0.18);
       background: rgba(255, 255, 255, 0.035);
+    }
+
+    .booking-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(214,178,85,0.03), transparent 30%);
     }
 
     .booking-card h3 {
@@ -466,10 +487,51 @@
       font-size: 14px;
     }
 
+    .booking-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .booking-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(214, 178, 85, 0.08);
+      border: 1px solid rgba(214, 178, 85, 0.22);
+      color: #f4d27a;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
     .booking-form {
+      position: relative;
+      z-index: 2;
       display: grid;
       gap: 14px;
       margin-top: 16px;
+    }
+
+    .form-group-title {
+      margin-top: 6px;
+      margin-bottom: 6px;
+      padding-left: 2px;
+      color: #f8e8b0;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .form-group-title small {
+      color: #cdbb94;
+      font-size: 13px;
+      font-weight: 600;
+      margin-left: 8px;
     }
 
     .form-grid {
@@ -484,9 +546,18 @@
     }
 
     .form-field label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       color: #f8e8b0;
       font-size: 14px;
       font-weight: 800;
+    }
+
+    .label-icon {
+      width: 20px;
+      display: inline-flex;
+      justify-content: center;
     }
 
     .form-field input,
@@ -527,21 +598,22 @@
 
     .send-btn {
       width: 100%;
-      margin-top: 12px;
+      margin-top: 18px;
       min-height: 54px;
       border: none;
       border-radius: 999px;
       background: linear-gradient(135deg, #f3d580, #b98f37);
       color: #111;
       font-weight: 900;
-      font-size: 17px;
+      font-size: 18px;
+      letter-spacing: 0.5px;
       cursor: pointer;
       font-family: inherit;
     }
 
     .copy-btn {
       width: 100%;
-      margin-top: 12px;
+      margin-top: 10px;
       min-height: 50px;
       border: 1px solid rgba(214, 178, 85, 0.32);
       border-radius: 999px;
@@ -553,14 +625,19 @@
       font-family: inherit;
     }
 
-    .form-hint {
-      margin-top: 12px;
-      padding: 14px 16px;
+    .booking-tip-box {
+      margin-top: 18px;
+      padding: 16px 18px;
       border-radius: 18px;
-      background: rgba(214, 178, 85, 0.065);
-      border: 1px solid rgba(214, 178, 85, 0.18);
+      background: rgba(214, 178, 85, 0.06);
+      border: 1px solid rgba(214, 178, 85, 0.16);
       color: #eadbb7;
       font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .booking-tip-box strong {
+      color: #f4d27a;
     }
 
     .footer {
@@ -866,46 +943,83 @@
 
       <section id="booking">
         <div class="section-title">
-          <span>BOOKING</span>
-          <h2>立即預約／詢問報價</h2>
-          <p>請填寫以下資料，完成後可一鍵傳回 LINE 官方客服。</p>
+          <span>BOOKING SERVICE</span>
+          <h2><span class="gold-icon">✦</span>立即預約／詢問報價</h2>
+          <p>填寫下列表單後，可直接一鍵送回 LINE 官方客服，快速完成詢價或預約。</p>
+          <div class="section-sub-note">高級接送服務｜9人座機場接送｜多人包車｜商務接待</div>
         </div>
 
         <div class="booking-card">
+          <div class="booking-topbar">
+            <div class="booking-badge">🛎️ 線上快速詢價</div>
+            <div class="booking-badge">🚐 9人座專屬服務</div>
+            <div class="booking-badge">📲 一鍵送回 LINE</div>
+          </div>
+
           <form class="booking-form" id="bookingForm">
+            <div class="form-group-title">預約資訊 <small>請填寫基本需求</small></div>
+
             <div class="form-grid">
               <div class="form-field">
-                <label for="date">日期</label>
+                <label for="contactName"><span class="label-icon">👤</span>聯絡稱呼</label>
+                <input id="contactName" type="text" placeholder="例：王小姐" />
+              </div>
+
+              <div class="form-field">
+                <label for="serviceType"><span class="label-icon">📝</span>需求類型</label>
+                <select id="serviceType">
+                  <option value="">請選擇</option>
+                  <option value="我要預約">我要預約</option>
+                  <option value="我要詢價">我要詢價</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="tripType"><span class="label-icon">✈️</span>行程類型</label>
+                <select id="tripType">
+                  <option value="">請選擇</option>
+                  <option value="送機">送機</option>
+                  <option value="接機">接機</option>
+                  <option value="來回接送">來回接送</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="date"><span class="label-icon">📅</span>日期</label>
                 <input id="date" type="date" />
               </div>
 
               <div class="form-field">
-                <label for="time">時間</label>
+                <label for="time"><span class="label-icon">🕒</span>時間</label>
                 <input id="time" type="time" />
               </div>
 
               <div class="form-field">
-                <label for="pickup">上車地點</label>
-                <input id="pickup" type="text" placeholder="例：台中市北屯區..." />
+                <label for="passengers"><span class="label-icon">👥</span>人數</label>
+                <input id="passengers" type="number" min="1" max="8" placeholder="例：7" />
               </div>
 
-              <div class="form-field">
-                <label for="dropoff">下車地點</label>
+              <div class="form-field full-field">
+                <label for="pickup"><span class="label-icon">📍</span>上車地點</label>
+                <input id="pickup" type="text" placeholder="例：台中市..." />
+              </div>
+
+              <div class="form-field full-field">
+                <label for="dropoff"><span class="label-icon">🏁</span>下車地點</label>
                 <input id="dropoff" type="text" placeholder="例：桃園機場第一航廈" />
               </div>
+            </div>
 
+            <div class="form-group-title">乘車需求 <small>有助於更準確報價</small></div>
+
+            <div class="form-grid">
               <div class="form-field">
-                <label for="passengers">人數</label>
-                <input id="passengers" type="number" min="1" max="8" placeholder="例：6" />
+                <label for="luggage"><span class="label-icon">🧳</span>行李數量</label>
+                <input id="luggage" type="text" placeholder="例：28吋 7件" />
               </div>
 
               <div class="form-field">
-                <label for="luggage">行李數量</label>
-                <input id="luggage" type="text" placeholder="例：28吋 5件、登機箱 2件" />
-              </div>
-
-              <div class="form-field">
-                <label for="childSeat">是否需要兒童座椅</label>
+                <label for="childSeat"><span class="label-icon">🪑</span>兒童座椅</label>
                 <select id="childSeat">
                   <option value="">請選擇</option>
                   <option value="不需要">不需要</option>
@@ -916,40 +1030,36 @@
               </div>
 
               <div class="form-field">
-                <label for="extraStop">是否有加點</label>
-                <input id="extraStop" type="text" placeholder="例：無／有，先到彰化接人" />
+                <label for="extraStop"><span class="label-icon">➕</span>是否加點</label>
+                <input id="extraStop" type="text" placeholder="例：無 / 有，先到某地接人" />
               </div>
 
               <div class="form-field">
-                <label for="flight">接機航班編號</label>
-                <input id="flight" type="text" placeholder="接機才需要填，例：CI123" />
-              </div>
-
-              <div class="form-field">
-                <label for="contactName">聯絡稱呼</label>
-                <input id="contactName" type="text" placeholder="例：王小姐" />
+                <label for="flight"><span class="label-icon">🛫</span>航班編號</label>
+                <input id="flight" type="text" placeholder="例：CI123（接機再填）" />
               </div>
 
               <div class="form-field full-field">
-                <label for="remark">備註</label>
-                <textarea id="remark" placeholder="例：有長輩同行、需要靠近電梯口、行李較多..."></textarea>
+                <label for="remark"><span class="label-icon">💬</span>備註</label>
+                <textarea id="remark" placeholder="例：有長輩同行、行李較多、需要提早聯繫..."></textarea>
               </div>
             </div>
 
             <button class="send-btn" type="button" onclick="sendBookingToLine()">
-              一鍵傳回 LINE 官方客服
+              🚀 一鍵送出到 LINE 官方客服
             </button>
 
             <button class="copy-btn" type="button" onclick="copyBookingText()">
-              複製已填寫內容
+              📋 複製已填寫內容
             </button>
 
             <div class="hero-actions">
               <a class="btn btn-outline" href="#top">回到上方</a>
             </div>
 
-            <div class="form-hint">
-              實際價格會依接送地點、時段、車型、人數、行李、加點與特殊日期調整，請以客服最終報價為準。
+            <div class="booking-tip-box">
+              <strong>提醒：</strong> 實際價格會依接送地點、時段、加點、人數、行李與特殊日期調整，
+              請以客服最終回覆報價為準。
             </div>
           </form>
         </div>
@@ -994,6 +1104,9 @@
     }
 
     function buildBookingMessage() {
+      const contactName = getValue("contactName");
+      const serviceType = getValue("serviceType");
+      const tripType = getValue("tripType");
       const date = getValue("date");
       const time = getValue("time");
       const pickup = getValue("pickup");
@@ -1003,28 +1116,35 @@
       const childSeat = getValue("childSeat");
       const extraStop = getValue("extraStop");
       const flight = getValue("flight");
-      const contactName = getValue("contactName");
       const remark = getValue("remark");
 
-      return `您好，我想預約／詢問 9 人座賓士機場接送
+      return `【星級九座｜預約 / 詢價表單】
 
-日期：${date || "未填寫"}
-時間：${time || "未填寫"}
-上車地點：${pickup || "未填寫"}
-下車地點：${dropoff || "未填寫"}
-人數：${passengers || "未填寫"}
-行李數量：${luggage || "未填寫"}
-是否需要兒童座椅：${childSeat || "未填寫"}
-是否有加點：${extraStop || "未填寫"}
-接機航班編號：${flight || "未填寫"}
-聯絡稱呼：${contactName || "未填寫"}
-備註：${remark || "無"}
+👤 聯絡稱呼：${contactName || "未填寫"}
+📝 需求類型：${serviceType || "未填寫"}
+🚐 服務項目：9人座機場接送
+✈️ 行程類型：${tripType || "未填寫"}
 
-我已填寫以上資料，請客服協助報價，謝謝。`;
+📅 日期：${date || "未填寫"}
+🕒 時間：${time || "未填寫"}
+📍 上車地點：${pickup || "未填寫"}
+🏁 下車地點：${dropoff || "未填寫"}
+
+👥 人數：${passengers || "未填寫"}
+🧳 行李數量：${luggage || "未填寫"}
+🪑 兒童座椅：${childSeat || "未填寫"}
+➕ 是否加點：${extraStop || "未填寫"}
+🛫 航班編號：${flight || "未填寫"}
+💬 備註：${remark || "無"}
+
+麻煩客服協助確認報價，謝謝您。`;
     }
 
     function validateBookingForm() {
       const requiredFields = [
+        { id: "contactName", name: "聯絡稱呼" },
+        { id: "serviceType", name: "需求類型" },
+        { id: "tripType", name: "行程類型" },
         { id: "date", name: "日期" },
         { id: "time", name: "時間" },
         { id: "pickup", name: "上車地點" },
