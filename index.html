@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>星級九座，尊榮啟航｜9人座機場接送</title>
+  <meta name="description" content="維尼大台中｜星級九座，尊榮啟航。9人座賓士機場接送、多人包車、商務接待、家庭旅遊接送服務。" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      color: #f7f0df;
+      line-height: 1.8;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(214,178,85,0.08) 0, rgba(214,178,85,0.08) 2px, transparent 2px) 0 0/28px 28px,
+        radial-gradient(circle at 88% 12%, rgba(214,178,85,0.045) 0, rgba(214,178,85,0.045) 2px, transparent 2px) 0 0/34px 34px,
+        linear-gradient(135deg, rgba(214,178,85,0.04) 0%, transparent 34%),
+        linear-gradient(180deg, #050505 0%, #0b0b0b 48%, #101010 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          transparent 0,
+          transparent 24px,
+          rgba(214,178,85,0.018) 24px,
+          rgba(214,178,85,0.018) 25px
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 7, 7, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(214, 178, 85, 0.16);
+    }
+
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .logo {
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #f4d27a;
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    .menu {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      font-size: 14px;
+      color: #e9dcc1;
+    }
+
+    .menu a {
+      opacity: 0.9;
+    }
+
+    .menu a:hover {
+      color: #f4d27a;
+      opacity: 1;
+    }
+
+    .menu .booking-link {
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f2d27d, #b78b32);
+      color: #111;
+      font-weight: 900;
+      opacity: 1;
+    }
+
+    .hero {
+      padding: 46px 0 30px;
+    }
+
+    .hero-card {
+      width: 100%;
+      padding: 36px;
+      border-radius: 34px;
+      border: 1px solid rgba(214, 178, 85, 0.24);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(214,178,85,0.18), transparent 32%),
+        linear-gradient(135deg, rgba(10, 10, 10, 0.96), rgba(20, 20, 20, 0.9));
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -120px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(214, 178, 85, 0.12), transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 30px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #f4d27a;
+      background: rgba(214, 178, 85, 0.08);
+      border: 1px solid rgba(214, 178, 85, 0.22);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 6.4vw, 72px);
+      line-height: 1.1;
+      letter-spacing: 1px;
+      color: #f8e8b0;
+    }
+
+    .subtitle {
+      margin: 16px 0 0;
+      font-size: clamp(20px, 3.4vw, 32px);
+      color: #fff8e8;
+      font-weight: 700;
+    }
+
+    .hero-text {
+      max-width: 720px;
+      margin-top: 20px;
+      color: #d9cdb2;
+      font-size: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 13px 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      transition: 0.22s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #f3d580, #b98f37);
+      color: #111;
+      box-shadow: 0 14px 34px rgba(214, 178, 85, 0.25);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(214, 178, 85, 0.32);
+      color: #f4e6c3;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    .hero-visual-card {
+      padding: 14px;
+      border-radius: 28px;
+      border: 1px solid rgba(214, 178, 85, 0.2);
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .hero-visual-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #111;
+      background: linear-gradient(135deg, #f4d27a, #c7962e);
+    }
+
+    .car-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border-radius: 22px;
+      background: #191919;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero-mini-info {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(214, 178, 85, 0.06);
+      border: 1px solid rgba(214, 178, 85, 0.14);
+      color: #ecdcb8;
+      font-size: 14px;
+    }
+
+    section {
+      padding: 38px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .section-title span {
+      display: inline-block;
+      color: #f4d27a;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 42px);
+      color: #fff4d6;
+      line-height: 1.25;
+    }
+
+    .section-title p {
+      max-width: 700px;
+      margin: 12px auto 0;
+      color: #cfc2a7;
+      font-size: 15px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .feature-card {
+      padding: 22px 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(214, 178, 85, 0.14);
+      min-height: 180px;
+    }
+
+    .feature-card .icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 8px;
+      color: #f8e8b0;
+      font-size: 19px;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: #d2c5aa;
+      font-size: 14px;
+    }
+
+    .price-panel {
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid rgba(214, 178, 85, 0.2);
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    .price-head {
+      padding: 22px;
+      background: linear-gradient(135deg, rgba(214, 178, 85, 0.18), rgba(214, 178, 85, 0.04));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .price-head h3 {
+      margin: 0;
+      color: #f8e8b0;
+      font-size: 24px;
+    }
+
+    .price-head p {
+      margin: 0;
+      color: #d7c8a9;
+      font-size: 14px;
+    }
+
+    .price-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .price-item {
+      padding: 20px;
+      border-top: 1px solid rgba(214, 178, 85, 0.12);
+      border-right: 1px solid rgba(214, 178, 85, 0.1);
+    }
+
+    .price-item:nth-child(3n) {
+      border-right: none;
+    }
+
+    .place {
+      color: #f0e4c7;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .amount {
+      color: #f4d27a;
+      font-size: 28px;
+      font-weight: 900;
+      margin-top: 4px;
+    }
+
+    .amount small {
+      font-size: 13px;
+      color: #cfc2a7;
+      font-weight: 700;
+    }
+
+    .notice {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(214, 178, 85, 0.18);
+      background: rgba(214, 178, 85, 0.065);
+      color: #eadbb7;
+      font-size: 14px;
+    }
+
+    .booking-wrap {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .booking-card {
+      padding: 26px;
+      border-radius: 28px;
+      border: 1px solid rgba(214, 178, 85, 0.18);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .booking-card h3 {
+      margin: 0 0 10px;
+      color: #f8e8b0;
+      font-size: 24px;
+    }
+
+    .booking-card p {
+      margin: 0;
+      color: #d2c5aa;
+      font-size: 15px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .info-row {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(214, 178, 85, 0.1);
+      color: #f3e8cb;
+      font-weight: 700;
+    }
+
+    .copy-box {
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 18px;
+      white-space: pre-line;
+      color: #f3e8cb;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px dashed rgba(214, 178, 85, 0.28);
+      font-size: 14px;
+    }
+
+    .copy-btn {
+      width: 100%;
+      margin-top: 12px;
+      min-height: 50px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f3d580, #b98f37);
+      color: #111;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .rules {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .rule {
+      padding: 14px;
+      border-left: 3px solid #d6b255;
+      background: rgba(214, 178, 85, 0.055);
+      border-radius: 14px;
+      color: #e6d8b9;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 36px 18px 100px;
+      text-align: center;
+      color: #9d8f70;
+      font-size: 13px;
+    }
+
+    .fixed-line {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 80;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: #06c755;
+      color: #fff;
+      font-weight: 900;
+      box-shadow: 0 16px 40px rgba(6, 199, 85, 0.32);
+    }
+
+    @media (max-width: 980px) {
+      .hero-layout,
+      .booking-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .price-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .price-item:nth-child(3n) {
+        border-right: 1px solid rgba(214, 178, 85, 0.1);
+      }
+
+      .price-item:nth-child(2n) {
+        border-right: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .menu {
+        width: 100%;
+        overflow-x: auto;
+        gap: 12px;
+        padding-bottom: 2px;
+      }
+
+      .menu a {
+        flex: 0 0 auto;
+      }
+
+      .hero {
+        padding: 28px 0 20px;
+      }
+
+      .hero-card {
+        padding: 26px 18px;
+        border-radius: 26px;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      section {
+        padding: 34px 0;
+      }
+
+      .feature-grid,
+      .price-list {
+        grid-template-columns: 1fr;
+      }
+
+      .price-item,
+      .price-item:nth-child(2n),
+      .price-item:nth-child(3n) {
+        border-right: none;
+      }
+
+      .fixed-line {
+        left: 14px;
+        right: 14px;
+        bottom: 12px;
+        text-align: center;
+      }
+
+      .footer {
+        padding-bottom: 90px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="logo" href="#top">星級九座</a>
+
+        <nav class="menu">
+          <a href="#feature">特色</a>
+          <a href="#price">價格</a>
+          <a href="#notice">須知</a>
+          <a class="booking-link" href="#booking">預約</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero" id="top">
+        <div class="hero-card">
+          <div class="hero-layout">
+
+            <div class="hero-content">
+              <div class="eyebrow">維尼大台中｜9人座賓士機場接送</div>
+
+              <h1>星級九座，<br />尊榮啟航</h1>
+
+              <div class="subtitle">商務接送・貴賓包車・機場接駁</div>
+
+              <p class="hero-text">
+                為家庭旅遊、商務貴賓、多人出國與大量行李需求打造的舒適接送服務。
+                一台 9 人座，讓您不用分車、不用擔心行李空間，從出發開始就安心從容。
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-gold" href="#booking">立即詢問預約</a>
+                <a class="btn btn-outline" href="#price">查看價格參考</a>
+              </div>
+            </div>
+
+            <div class="hero-visual">
+              <div class="hero-visual-card">
+                <div class="hero-visual-label">STAR LUXURY CHAUFFEUR</div>
+                <img class="car-image" src="benz-9seat.jpg" alt="星級九座賓士機場接送" />
+                <div class="hero-mini-info">
+                  建議乘坐 5～8 人｜約可放 7 件大型行李<br />
+                  適合機場接送、家庭旅遊、商務接待、多人物品同行
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section id="feature">
+        <div class="section-title">
+          <span>WHY CHOOSE US</span>
+          <h2>一台車，剛剛好的體面與舒適</h2>
+          <p>適合 5～8 人同行，兼顧乘坐空間與行李容量，讓機場接送不再手忙腳亂。</p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="icon">🚐</div>
+            <h3>9人座大空間</h3>
+            <p>適合家庭、朋友、商務團體同行，減少分車等待與溝通成本。</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="icon">🧳</div>
+            <h3>行李更好放</h3>
+            <p>約可放 7 件大型行李，實際依人數與行李尺寸安排。</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="icon">✈️</div>
+            <h3>機場接送</h3>
+            <p>桃園機場、清泉崗機場、高鐵、長途接送皆可安排。</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="icon">🤵</div>
+            <h3>商務接待</h3>
+            <p>適合貴賓接送、公司出差、客戶接待與重要行程安排。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="price">
+        <div class="section-title">
+          <span>PRICE REFERENCE</span>
+          <h2>桃園機場接送價格參考</h2>
+          <p>以下以 9 人座為主，價格依實際地址、時段、人數、行李與加點需求確認。</p>
+        </div>
+
+        <div class="price-panel">
+          <div class="price-head">
+            <div>
+              <h3>9人座參考價</h3>
+              <p>實際價格請以客服確認為準</p>
+            </div>
+            <a class="btn btn-gold" href="#booking">我要詢問</a>
+          </div>
+
+          <div class="price-list">
+            <div class="price-item">
+              <div class="place">台中市區 ⇄ 桃園機場</div>
+              <div class="amount">$2,500 <small>起</small></div>
+            </div>
+
+            <div class="price-item">
+              <div class="place">彰化市區 ⇄ 桃園機場</div>
+              <div class="amount">$3,000 <small>起</small></div>
+            </div>
+
+            <div class="price-item">
+              <div class="place">南投市區 ⇄ 桃園機場</div>
+              <div class="amount">$3,200 <small>起</small></div>
+            </div>
+
+            <div class="price-item">
+              <div class="place">苗栗市區 ⇄ 桃園機場</div>
+              <div class="amount">$2,100 <small>起</small></div>
+            </div>
+
+            <div class="price-item">
+              <div class="place">新竹市區 ⇄ 桃園機場</div>
+              <div class="amount">$1,700 <small>起</small></div>
+            </div>
+
+            <div class="price-item">
+              <div class="place">台北／新北 ⇄ 桃園機場</div>
+              <div class="amount">$1,400 <small>起</small></div>
+            </div>
+
+            <div class="price-item">
+              <div class="place">雲林市區 ⇄ 桃園機場</div>
+              <div class="amount">$3,900 <small>起</small></div>
+            </div>
+
+            <div class="price-item">
+              <div class="place">嘉義市區 ⇄ 桃園機場</div>
+              <div class="amount">$4,300 <small>起</small></div>
+            </div>
+
+            <div class="price-item">
+              <div class="place">台南市區 ⇄ 桃園機場</div>
+              <div class="amount">$5,200 <small>起</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice">
+          其他地區、褓姆車、五人座、七人座、凌晨時段、連假春節、加點與指定車型，請由客服依實際需求報價。
+        </div>
+      </section>
+
+      <section id="notice">
+        <div class="section-title">
+          <span>NOTICE</span>
+          <h2>預約前請先確認</h2>
+          <p>為了安排最適合的車型，請於詢問時提供完整資訊。</p>
+        </div>
+
+        <div class="booking-wrap">
+          <div class="booking-card">
+            <h3>需要提供的資料</h3>
+            <p>客服會依照以下資料評估車型與費用。</p>
+
+            <div class="info-list">
+              <div class="info-row">日期與時間</div>
+              <div class="info-row">上車地點與下車地點</div>
+              <div class="info-row">乘車人數</div>
+              <div class="info-row">行李數量與尺寸</div>
+              <div class="info-row">是否需要兒童座椅</div>
+              <div class="info-row">接機請提供航班編號</div>
+            </div>
+          </div>
+
+          <div class="booking-card">
+            <h3>費用提醒</h3>
+            <p>以下情況可能會影響實際報價。</p>
+
+            <div class="rules">
+              <div class="rule">凌晨 22:00～06:00 可能會有夜間加價。</div>
+              <div class="rule">加點、跨區、跨縣市會依距離另計。</div>
+              <div class="rule">連假、春節、跨年等特殊日期可能會有加價。</div>
+              <div class="rule">現場人數或行李與訂單不符，需補足車型差價。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="booking">
+        <div class="section-title">
+          <span>BOOKING</span>
+          <h2>立即預約／詢問報價</h2>
+          <p>複製下方格式，貼到 LINE 官方客服即可快速詢問。</p>
+        </div>
+
+        <div class="booking-card">
+          <div class="copy-box" id="copyText">您好，我想預約／詢問 9 人座賓士機場接送
+
+日期：
+時間：
+上車地點：
+下車地點：
+人數：
+行李數量：
+是否需要兒童座椅：
+是否有加點：
+接機航班編號：</div>
+
+          <button class="copy-btn" onclick="copyBookingText()">複製預約格式</button>
+
+          <div class="hero-actions">
+            <a class="btn btn-gold" id="lineButton" href="#" target="_blank">前往 LINE 官方預約</a>
+            <a class="btn btn-outline" href="#top">回到上方</a>
+          </div>
+
+          <div class="notice">
+            實際價格會依地點、時段、車型、人數、行李、加點與特殊日期調整，請以客服最終報價為準。
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      星級九座，尊榮啟航<br />
+      9人座賓士機場接送・多人包車・商務接待・長途接送
+    </footer>
+
+    <a class="fixed-line" id="lineFixed" href="#" target="_blank">LINE 預約</a>
+  </div>
+
+  <script>
+    // 請改成你的 LINE 官方好友連結
+    const LINE_OFFICIAL_URL = "https://lin.ee/你的LINE官方連結";
+
+    document.getElementById("lineButton").href = LINE_OFFICIAL_URL;
+    document.getElementById("lineFixed").href = LINE_OFFICIAL_URL;
+
+    function copyBookingText() {
+      const text = document.getElementById("copyText").innerText.trim();
+
+      navigator.clipboard.writeText(text).then(function () {
+        alert("已複製預約格式，可以直接貼到 LINE 給客服。");
+      }).catch(function () {
+        alert("無法自動複製，請手動複製內容。");
+      });
+    }
+  </script>
+</body>
+</html>
