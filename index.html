@@ -7,6 +7,8 @@
   <title>星級九座，尊榮啟航｜9人座機場接送</title>
   <meta name="description" content="維尼大台中｜星級九座，尊榮啟航。9人座賓士機場接送、多人包車、商務接待、家庭旅遊接送服務。" />
 
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -207,6 +209,9 @@
       transition: 0.22s ease;
       cursor: pointer;
       text-align: center;
+      border: none;
+      font-family: inherit;
+      font-size: 15px;
     }
 
     .btn-gold {
@@ -503,6 +508,10 @@
       color: #fff;
       font-weight: 900;
       box-shadow: 0 16px 40px rgba(6, 199, 85, 0.32);
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 15px;
     }
 
     @media (max-width: 980px) {
@@ -622,7 +631,7 @@
               </p>
 
               <div class="hero-actions">
-                <a class="btn btn-gold" href="#booking">立即詢問預約</a>
+                <button class="btn btn-gold" type="button" onclick="sendBookingToLine()">立即一鍵預約</button>
                 <a class="btn btn-outline" href="#price">查看價格參考</a>
               </div>
             </div>
@@ -689,7 +698,7 @@
               <h3>9人座參考價</h3>
               <p>實際價格請以客服確認為準</p>
             </div>
-            <a class="btn btn-gold" href="#booking">我要詢問</a>
+            <button class="btn btn-gold" type="button" onclick="sendBookingToLine()">我要詢問</button>
           </div>
 
           <div class="price-list">
@@ -804,7 +813,7 @@
           <button class="copy-btn" onclick="copyBookingText()">複製預約格式</button>
 
           <div class="hero-actions">
-            <a class="btn btn-gold" id="lineButton" href="#" target="_blank">前往 LINE 官方預約</a>
+            <button class="btn btn-gold" id="lineButton" type="button" onclick="sendBookingToLine()">一鍵傳送預約格式</button>
             <a class="btn btn-outline" href="#top">回到上方</a>
           </div>
 
@@ -820,15 +829,40 @@
       9人座賓士機場接送・多人包車・商務接待・長途接送
     </footer>
 
-    <a class="fixed-line" id="lineFixed" href="#" target="_blank">LINE 預約</a>
+    <button class="fixed-line" id="lineFixed" type="button" onclick="sendBookingToLine()">LINE 預約</button>
   </div>
 
   <script>
-    // 請改成你的 LINE 官方好友連結
+    // 你的 LINE 官方好友連結：請把這裡改成自己的 LINE 官方連結
     const LINE_OFFICIAL_URL = "https://lin.ee/你的LINE官方連結";
 
-    document.getElementById("lineButton").href = LINE_OFFICIAL_URL;
-    document.getElementById("lineFixed").href = LINE_OFFICIAL_URL;
+    // 你的 LIFF ID
+    const LIFF_ID = "2010285898-IkKfdjGF";
+
+    const bookingMessage = `您好，我想預約／詢問 9 人座賓士機場接送
+
+日期：
+時間：
+上車地點：
+下車地點：
+人數：
+行李數量：
+是否需要兒童座椅：
+是否有加點：
+接機航班編號：`;
+
+    let liffReady = false;
+
+    async function initLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        liffReady = true;
+        console.log("LIFF 初始化成功");
+      } catch (error) {
+        console.error("LIFF 初始化失敗：", error);
+        liffReady = false;
+      }
+    }
 
     function copyBookingText() {
       const text = document.getElementById("copyText").innerText.trim();
@@ -839,6 +873,40 @@
         alert("無法自動複製，請手動複製內容。");
       });
     }
+
+    async function sendBookingToLine() {
+      try {
+        if (!liffReady) {
+          await initLiff();
+        }
+
+        if (!liffReady) {
+          alert("LIFF 尚未成功啟動，請改用複製預約格式，或直接聯絡客服。");
+          return;
+        }
+
+        if (!liff.isInClient()) {
+          alert("請從 LINE 圖文選單或 LINE 聊天室內開啟此頁，才能一鍵傳送預約格式。現在將開啟 LINE 官方。");
+          window.location.href = LINE_OFFICIAL_URL;
+          return;
+        }
+
+        await liff.sendMessages([
+          {
+            type: "text",
+            text: bookingMessage
+          }
+        ]);
+
+        alert("已將預約格式送出，請補上資料後傳給客服。");
+        liff.closeWindow();
+      } catch (error) {
+        console.error("一鍵傳送失敗：", error);
+        alert("一鍵傳送失敗，請改用複製預約格式，或直接聯絡客服。");
+      }
+    }
+
+    window.addEventListener("load", initLiff);
   </script>
 </body>
 </html>
