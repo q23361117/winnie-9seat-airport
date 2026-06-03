@@ -451,30 +451,6 @@
       font-weight: 700;
     }
 
-    .copy-box {
-      margin-top: 16px;
-      padding: 18px;
-      border-radius: 18px;
-      white-space: pre-line;
-      color: #f3e8cb;
-      background: rgba(0, 0, 0, 0.28);
-      border: 1px dashed rgba(214, 178, 85, 0.28);
-      font-size: 14px;
-    }
-
-    .copy-btn {
-      width: 100%;
-      margin-top: 12px;
-      min-height: 50px;
-      border: none;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #f3d580, #b98f37);
-      color: #111;
-      font-weight: 900;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
     .rules {
       display: grid;
       gap: 12px;
@@ -487,6 +463,103 @@
       background: rgba(214, 178, 85, 0.055);
       border-radius: 14px;
       color: #e6d8b9;
+      font-size: 14px;
+    }
+
+    .booking-form {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .form-field label {
+      color: #f8e8b0;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(214, 178, 85, 0.22);
+      background: rgba(0, 0, 0, 0.32);
+      color: #fff7df;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .form-field textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: rgba(247, 240, 223, 0.45);
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: rgba(244, 210, 122, 0.72);
+      box-shadow: 0 0 0 3px rgba(214, 178, 85, 0.12);
+    }
+
+    .full-field {
+      grid-column: 1 / -1;
+    }
+
+    .send-btn {
+      width: 100%;
+      margin-top: 12px;
+      min-height: 54px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f3d580, #b98f37);
+      color: #111;
+      font-weight: 900;
+      font-size: 17px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .copy-btn {
+      width: 100%;
+      margin-top: 12px;
+      min-height: 50px;
+      border: 1px solid rgba(214, 178, 85, 0.32);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      color: #f4e6c3;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .form-hint {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(214, 178, 85, 0.065);
+      border: 1px solid rgba(214, 178, 85, 0.18);
+      color: #eadbb7;
       font-size: 14px;
     }
 
@@ -573,7 +646,8 @@
       }
 
       .feature-grid,
-      .price-list {
+      .price-list,
+      .form-grid {
         grid-template-columns: 1fr;
       }
 
@@ -631,7 +705,7 @@
               </p>
 
               <div class="hero-actions">
-                <button class="btn btn-gold" type="button" onclick="sendBookingToLine()">立即一鍵預約</button>
+                <a class="btn btn-gold" href="#booking">立即填寫預約</a>
                 <a class="btn btn-outline" href="#price">查看價格參考</a>
               </div>
             </div>
@@ -698,7 +772,7 @@
               <h3>9人座參考價</h3>
               <p>實際價格請以客服確認為準</p>
             </div>
-            <button class="btn btn-gold" type="button" onclick="sendBookingToLine()">我要詢問</button>
+            <a class="btn btn-gold" href="#booking">我要詢問</a>
           </div>
 
           <div class="price-list">
@@ -794,32 +868,90 @@
         <div class="section-title">
           <span>BOOKING</span>
           <h2>立即預約／詢問報價</h2>
-          <p>複製下方格式，貼到 LINE 官方客服即可快速詢問。</p>
+          <p>請填寫以下資料，完成後可一鍵傳回 LINE 官方客服。</p>
         </div>
 
         <div class="booking-card">
-          <div class="copy-box" id="copyText">您好，我想預約／詢問 9 人座賓士機場接送
+          <form class="booking-form" id="bookingForm">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="date">日期</label>
+                <input id="date" type="date" />
+              </div>
 
-日期：
-時間：
-上車地點：
-下車地點：
-人數：
-行李數量：
-是否需要兒童座椅：
-是否有加點：
-接機航班編號：</div>
+              <div class="form-field">
+                <label for="time">時間</label>
+                <input id="time" type="time" />
+              </div>
 
-          <button class="copy-btn" onclick="copyBookingText()">複製預約格式</button>
+              <div class="form-field">
+                <label for="pickup">上車地點</label>
+                <input id="pickup" type="text" placeholder="例：台中市北屯區..." />
+              </div>
 
-          <div class="hero-actions">
-            <button class="btn btn-gold" id="lineButton" type="button" onclick="sendBookingToLine()">一鍵傳送預約格式</button>
-            <a class="btn btn-outline" href="#top">回到上方</a>
-          </div>
+              <div class="form-field">
+                <label for="dropoff">下車地點</label>
+                <input id="dropoff" type="text" placeholder="例：桃園機場第一航廈" />
+              </div>
 
-          <div class="notice">
-            實際價格會依地點、時段、車型、人數、行李、加點與特殊日期調整，請以客服最終報價為準。
-          </div>
+              <div class="form-field">
+                <label for="passengers">人數</label>
+                <input id="passengers" type="number" min="1" max="8" placeholder="例：6" />
+              </div>
+
+              <div class="form-field">
+                <label for="luggage">行李數量</label>
+                <input id="luggage" type="text" placeholder="例：28吋 5件、登機箱 2件" />
+              </div>
+
+              <div class="form-field">
+                <label for="childSeat">是否需要兒童座椅</label>
+                <select id="childSeat">
+                  <option value="">請選擇</option>
+                  <option value="不需要">不需要</option>
+                  <option value="需要兒童座椅">需要兒童座椅</option>
+                  <option value="需要增高墊">需要增高墊</option>
+                  <option value="需要兒童座椅與增高墊">需要兒童座椅與增高墊</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="extraStop">是否有加點</label>
+                <input id="extraStop" type="text" placeholder="例：無／有，先到彰化接人" />
+              </div>
+
+              <div class="form-field">
+                <label for="flight">接機航班編號</label>
+                <input id="flight" type="text" placeholder="接機才需要填，例：CI123" />
+              </div>
+
+              <div class="form-field">
+                <label for="contactName">聯絡稱呼</label>
+                <input id="contactName" type="text" placeholder="例：王小姐" />
+              </div>
+
+              <div class="form-field full-field">
+                <label for="remark">備註</label>
+                <textarea id="remark" placeholder="例：有長輩同行、需要靠近電梯口、行李較多..."></textarea>
+              </div>
+            </div>
+
+            <button class="send-btn" type="button" onclick="sendBookingToLine()">
+              一鍵傳回 LINE 官方客服
+            </button>
+
+            <button class="copy-btn" type="button" onclick="copyBookingText()">
+              複製已填寫內容
+            </button>
+
+            <div class="hero-actions">
+              <a class="btn btn-outline" href="#top">回到上方</a>
+            </div>
+
+            <div class="form-hint">
+              實際價格會依接送地點、時段、車型、人數、行李、加點與特殊日期調整，請以客服最終報價為準。
+            </div>
+          </form>
         </div>
       </section>
     </main>
@@ -829,27 +961,12 @@
       9人座賓士機場接送・多人包車・商務接待・長途接送
     </footer>
 
-    <button class="fixed-line" id="lineFixed" type="button" onclick="sendBookingToLine()">LINE 預約</button>
+    <button class="fixed-line" id="lineFixed" type="button" onclick="goToBooking()">LINE 預約</button>
   </div>
 
   <script>
-    // 你的 LINE 官方好友連結：請把這裡改成自己的 LINE 官方連結
     const LINE_OFFICIAL_URL = "https://lin.ee/你的LINE官方連結";
-
-    // 你的 LIFF ID
     const LIFF_ID = "2010285898-IkKfdjGF";
-
-    const bookingMessage = `您好，我想預約／詢問 9 人座賓士機場接送
-
-日期：
-時間：
-上車地點：
-下車地點：
-人數：
-行李數量：
-是否需要兒童座椅：
-是否有加點：
-接機航班編號：`;
 
     let liffReady = false;
 
@@ -857,36 +974,104 @@
       try {
         await liff.init({ liffId: LIFF_ID });
         liffReady = true;
-        console.log("LIFF 初始化成功");
+        console.log("LIFF 初始化完成");
       } catch (error) {
         console.error("LIFF 初始化失敗：", error);
         liffReady = false;
       }
     }
 
+    function goToBooking() {
+      document.getElementById("booking").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function getValue(id) {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+
+    function buildBookingMessage() {
+      const date = getValue("date");
+      const time = getValue("time");
+      const pickup = getValue("pickup");
+      const dropoff = getValue("dropoff");
+      const passengers = getValue("passengers");
+      const luggage = getValue("luggage");
+      const childSeat = getValue("childSeat");
+      const extraStop = getValue("extraStop");
+      const flight = getValue("flight");
+      const contactName = getValue("contactName");
+      const remark = getValue("remark");
+
+      return `您好，我想預約／詢問 9 人座賓士機場接送
+
+日期：${date || "未填寫"}
+時間：${time || "未填寫"}
+上車地點：${pickup || "未填寫"}
+下車地點：${dropoff || "未填寫"}
+人數：${passengers || "未填寫"}
+行李數量：${luggage || "未填寫"}
+是否需要兒童座椅：${childSeat || "未填寫"}
+是否有加點：${extraStop || "未填寫"}
+接機航班編號：${flight || "未填寫"}
+聯絡稱呼：${contactName || "未填寫"}
+備註：${remark || "無"}
+
+我已填寫以上資料，請客服協助報價，謝謝。`;
+    }
+
+    function validateBookingForm() {
+      const requiredFields = [
+        { id: "date", name: "日期" },
+        { id: "time", name: "時間" },
+        { id: "pickup", name: "上車地點" },
+        { id: "dropoff", name: "下車地點" },
+        { id: "passengers", name: "人數" },
+        { id: "luggage", name: "行李數量" }
+      ];
+
+      const missing = requiredFields
+        .filter((field) => !getValue(field.id))
+        .map((field) => field.name);
+
+      if (missing.length > 0) {
+        alert("請先填寫：" + missing.join("、"));
+        return false;
+      }
+
+      return true;
+    }
+
     function copyBookingText() {
-      const text = document.getElementById("copyText").innerText.trim();
+      const text = buildBookingMessage();
 
       navigator.clipboard.writeText(text).then(function () {
-        alert("已複製預約格式，可以直接貼到 LINE 給客服。");
+        alert("已複製已填寫內容，可以貼到 LINE 給客服。");
       }).catch(function () {
         alert("無法自動複製，請手動複製內容。");
       });
     }
 
     async function sendBookingToLine() {
+      if (!validateBookingForm()) return;
+
+      const message = buildBookingMessage();
+
       try {
         if (!liffReady) {
           await initLiff();
         }
 
         if (!liffReady) {
-          alert("LIFF 尚未成功啟動，請改用複製預約格式，或直接聯絡客服。");
+          alert("LIFF 尚未成功啟動，請改用『複製已填寫內容』貼到 LINE 客服。");
           return;
         }
 
         if (!liff.isInClient()) {
-          alert("請從 LINE 圖文選單或 LINE 聊天室內開啟此頁，才能一鍵傳送預約格式。現在將開啟 LINE 官方。");
+          alert("請從 LINE 圖文選單開啟此頁，才能一鍵傳回 LINE。現在將為您開啟 LINE 官方。");
           window.location.href = LINE_OFFICIAL_URL;
           return;
         }
@@ -894,15 +1079,15 @@
         await liff.sendMessages([
           {
             type: "text",
-            text: bookingMessage
+            text: message
           }
         ]);
 
-        alert("已將預約格式送出，請補上資料後傳給客服。");
+        alert("已傳送預約資料，請回到聊天室確認。");
         liff.closeWindow();
       } catch (error) {
-        console.error("一鍵傳送失敗：", error);
-        alert("一鍵傳送失敗，請改用複製預約格式，或直接聯絡客服。");
+        console.error("傳送失敗：", error);
+        alert("傳送失敗，請改用『複製已填寫內容』貼到 LINE 客服。");
       }
     }
 
